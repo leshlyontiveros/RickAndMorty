@@ -10,17 +10,17 @@ export const FETCH_EPISODES = "FETCH_EPISODES";
 /**
  * Função que inicia a API e faz um load na página
  * @function fetchPersonagemStarted
- * @returns { ActionType } só retorna um estado que já estava (...state) e isFetching: true
+ * @returns { ActionType } Só retorna um estado que já estava (...state) e isFetching: true
  */
 export const  fetchPersonagemStarted = (): ActionType => {
     return { type: FETCH_PERSONAGENS_START };
 };
 
 /**
- * esta função para pega os personagens e páginação na API.
+ * Esta função pega os personagens e a páginação na API.
  * @function fetchPersonagemSuccess
- * @param { Api } data Objeto da Api que passa dados dos personagens e da paginação.
- * @returns { ActionType } retorna o payload com array de personagens e a paginação.
+ * @param { Api } data Este é um objeto da API que passa dados da paginação e dos personagens.
+ * @returns { ActionType } Retorna o payload com o array de personagens e a paginação.
  */
 export const fetchPersonagemSuccess = (data: Api): ActionType => {
     return {
@@ -32,8 +32,8 @@ export const fetchPersonagemSuccess = (data: Api): ActionType => {
 /**
  * Esta função retorna um errorMessage se algo dar errado.
  * @function fetchPersonagemError
- * @param { string } errorMessage mensagem de erro
- * @returns { ActionType } retorna o payload com a string da mensagem de erro
+ * @param { string } errorMessage Este parametro mostra uma mensagem de erro, caso algo presente um problema
+ * @returns { ActionType } Retorna o payload com a string da mensagem de erro
  */
 export const fetchPersonagemError = (errorMessage: string): ActionType => {
     return {
@@ -43,10 +43,10 @@ export const fetchPersonagemError = (errorMessage: string): ActionType => {
 }
 
 /**
- * Esta função que muda o estado favorito do personagem para true ou false
+ * Esta função muda o estado favorito do personagem para true ou false
  * @function favoritarPersonagens
- * @param { number } id parâmetro id que recebe para saber qual personagem mudar
- * @returns { ActionType } retorna o payload com id do personagem
+ * @param { number } id Este é o parâmetro id que recebe para saber qual personagem mudar
+ * @returns { ActionType } Retorna o payload com id do personagem
  */
 export const favoritarPersonagens = (id: number): ActionType => {
 
@@ -58,10 +58,10 @@ export const favoritarPersonagens = (id: number): ActionType => {
 }
 
 /**
- * Esta função que retorna apenas um personagem específico
+ * Esta função retorna apenas um personagem específico
  * @function fetchPersonagemIDSuccess
- * @param { Personagem } personagem parâmetro do tipo { Personagem }
- * @returns { ActionType } retorna um payload do tipo Personagem
+ * @param { Personagem } personagem Parâmetro do tipo { Personagem }
+ * @returns { ActionType } Retorna um payload do tipo Personagem
  */
 export const fetchPersonagemIDSuccess = (personagem: Personagem): ActionType => {
     return {
@@ -71,10 +71,10 @@ export const fetchPersonagemIDSuccess = (personagem: Personagem): ActionType => 
 }
 
 /**
- * Esta é função que retorna todos os episodios de um personagem
+ * Esta é a função que retorna todos os episodios em que um personagem participou.
  * @function fetchEpisodes
- * @param { Episode[] } episodes parâmetro array de episodios do tipo { Episode[] }
- * @returns { ActionType } retorna um payload array de episodios do tipo { Episode[] }
+ * @param { Episode[] } episodes Parâmetro array de episódios do tipo { Episode[] }
+ * @returns { ActionType } Retorna um payload array de episódios do tipo { Episode[] }
  */
 export const fetchEpisodes = (episodes: Episode[]): ActionType => {
     return {
@@ -85,11 +85,11 @@ export const fetchEpisodes = (episodes: Episode[]): ActionType => {
 }
 
 /**
- * Função que faz uma requisição na API buscando por todos personagens sendo que retorna 1 pagina com 20, acrescenta o favorito: false em todos
- * ela também retorna a paginação e passa por payload para a função fetchPersonagemSuccess
+ * Esta função requisita à API pelos personagens e retorna uma página com 20, acrescenta o favorito:false
+ *  em todos eles,  passa por payload para a função fetchPersonagemSuccess e retorna a paginação
  * @function fetchPersonagemThunk
- * @async parâmetro dispatch
- * @returns função retorna os 20 primeiros personagens em .results e a paginação em .info
+ * @async Parâmetro dispatch
+ * @returns Esta função retorna os primeiros 20 personagens em .results e a paginação em .info
  */
 export const fetchPersonagemThunk = () => async (dispatch: any) => {
     dispatch(fetchPersonagemStarted());    
@@ -105,11 +105,11 @@ export const fetchPersonagemThunk = () => async (dispatch: any) => {
 }
 
 /**
- * Esta função faz uma requisição na API de acordo com o nome passado por parâmetro
+ * Esta função faz uma requisição na API de acordo com o nome passado pelo parâmetro
  * @function filterPersonagemThunk
- * @param { string } texto pârametro para poder obter o personagem buscado por filtro
+ * @param { string } texto Este pârametro obtem o personagem buscado por filtro
  * @async
- * @returns retorna o personagem buscado por pârametro
+ * @returns Retorna o personagem buscado por pârametro
  */
 export const filterPersonagemThunk = (texto: string) => async (dispatch: any) => {
     dispatch(fetchPersonagemStarted());
@@ -125,11 +125,11 @@ export const filterPersonagemThunk = (texto: string) => async (dispatch: any) =>
 } 
 
 /**
- * Função que recebe a url e faz um fetch mudando a página
+ * Esta função que recebe a url e faz um fetch mudando a página
  * @function fetchNextPageThunk
- * @param { string } url pârametro da nova página a ser carregada
+ * @param { string } url Pârametro da nova página a ser carregada
  * @async 
- * @returns retorna uma nova página e passa os novos personagens dessa página na fetchPersonagemSuccess
+ * @returns Retorna uma nova página e passa os novos personagens dessa página na fetchPersonagemSuccess
  */
 export const fetchNextPageThunk = (url: string) => async (dispatch: any) => {    
     try {
@@ -143,13 +143,12 @@ export const fetchNextPageThunk = (url: string) => async (dispatch: any) => {
     } 
 } 
 
-
 /**
- * Função que retorna apenas um Personagem de acordo com id passado por pârametro
+ * Esta função retorna só um Personagem de acordo com id passado por pârametro
  * @function fetchPersonagemIDThunk
- * @param { number } id pârametro que busca o personagem
+ * @param { number } id Este pârametro busca o personagem de acordo com o id
  * @async 
- * @returns retorna o personagem e passa por payload para fetchPersonagemIDSuccess
+ * @returns Retorna o personagem e passa por payload para fetchPersonagemIDSuccess
  */
 export const fetchPersonagemIDThunk = (id: number) => async (dispatch: any) => {      
     try {
@@ -163,11 +162,11 @@ export const fetchPersonagemIDThunk = (id: number) => async (dispatch: any) => {
 } 
 
 /**
- * Função que busca por todos episodios de um determinado personagem
+ * Esta função procura todos os episódios em que um personagem específico apareceu
  * @function fetchEpisodesThunk
- * @param { string[] } arrayEp parâmetro um array de strings de um determinado personagem
+ * @param { string[] } arrayEp Parâmetro array de strings de um determinado personagem
  * @async 
- * @returns retorna esses episodios do personagem especifico e passa para fetchEpisodes
+ * @returns Retorna esses episódios do personagem escolhido e passa para fetchEpisodes
  */
 export const fetchEpisodesThunk = (arrayEp: string[]) => async (dispatch: any) => {    
     try {
